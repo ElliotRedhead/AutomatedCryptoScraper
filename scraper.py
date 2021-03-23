@@ -13,13 +13,16 @@ import json
 
 def scrape_page(url):
     # Query the website and return the HTML
-    page_response = urlopen(url)
-    # Parse the HTML using BeautifulSoup
-    parsed_html = BeautifulSoup(page_response, "html.parser")
-    # Find specific script tag
-    target_tag = parsed_html.find("script", type="application/json", id="__APP_DATA")
-    target_json = json.loads(target_tag.string)
-
+    try:
+        page_response = urlopen(url)
+        # Parse the HTML using BeautifulSoup
+        parsed_html = BeautifulSoup(page_response, "html.parser")
+        # Find specific script tag
+        target_tag = parsed_html.find("script", type="application/json", id="__APP_DATA")
+        target_json = json.loads(target_tag.string)
+    except:
+        print("A scraping error occurred, no results were produced.")
+        # Log the error to a table
     return target_json
 
 
