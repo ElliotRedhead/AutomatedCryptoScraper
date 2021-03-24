@@ -1,0 +1,1 @@
+docker exec -it binancepostgres psql -U username database
