@@ -1,15 +1,7 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import sys
 import re
 import json
-
-# # Open output file
-# if sys.argv[1:]:
-#     file_output_name = sys.argv[1]
-# else:
-#     file_output_name = "output"
-# # f = open(file_output_name+".json", "w+")
 
 def scrape_page(url):
     # Query the website and return the HTML
@@ -24,9 +16,6 @@ def scrape_page(url):
         print("A scraping error occurred, no results were produced.")
         # Log the error to a table
     return target_json
-
-
-
 
 def get_target_dict(parsed_json):
     print(parsed_json["routeProps"]["b723"]["navDataResource"][0]["articles"][0])
