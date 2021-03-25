@@ -15,10 +15,12 @@ try:
     print("PostgreSQL server information")
     print(connection.get_dsn_parameters(), "\n")
     # Executing a SQL query
-    cursor.execute("SELECT version();")
-    # Fetch result
-    record = cursor.fetchone()
-    print("You are connected to - ", record, "\n")
+    insert = cursor.execute("INSERT INTO announcements(id, title, coin, datettime_added) VALUES(1, 'testtitle', 'testcoin',now())")
+    # Commit to reflect inserted data
+    connection.commit()
+    cursor.execute("SELECT * FROM announcements;")
+    records = cursor.fetchone()
+    print(records)
 
 except (Exception, Error) as error:
     print("Error while connecting to PostgreSQL", error)
