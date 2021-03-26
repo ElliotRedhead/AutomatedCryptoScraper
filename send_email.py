@@ -1,12 +1,12 @@
+import os
 import requests
 from dotenv import load_dotenv
 load_dotenv()
-import os
 
-mailgun_api=os.environ['MAILGUN_API']
-mailgun_domain=os.environ['MAILGUN_DOMAIN']
+mailgun_api = os.environ["MAILGUN_API"]
+mailgun_domain = os.environ["MAILGUN_DOMAIN"]
 
-#
+
 def send_email(recipient_addresses):
     """Send an email to target email addresses.
 
