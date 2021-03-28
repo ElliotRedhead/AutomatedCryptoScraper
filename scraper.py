@@ -35,6 +35,7 @@ if __name__ == "__main__":
     target_dict = get_target_dict(parsed_json)
 
     coin_regex = re.search(r"\(([A-Z]+)\)", target_dict["title"])
-    coin = coin_regex.group()
+    coin = coin_regex.group()  # e.g. (SUPER)
+    coin = coin[1:len(coin)-1]  # e.g. SUPER
     column_values = (target_dict["title"], coin, "now()")
     db_functions.insert_announcement_record("database", column_values)
