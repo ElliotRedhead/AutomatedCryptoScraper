@@ -28,11 +28,8 @@ def insert_announcement_record(db_name, column_values):
     cursor = connection.cursor()
     try:
         SQL = f"INSERT INTO announcements (title, coin, datetime_added) VALUES(%s, %s, %s)"
-        print(SQL)
         # Execute SQL query
-        insert = cursor.execute(
-            SQL, (column_values))
-        print(insert)
+        cursor.execute(SQL, (column_values))
         # Commit to reflect inserted data
         connection.commit()
     except (Exception, Error) as error:
@@ -41,10 +38,3 @@ def insert_announcement_record(db_name, column_values):
         cursor.close()
         connection.close()
         print("PostgreSQL connection is closed")
-
-
-read_all_records("database", "announcements")
-insert_announcement_record(
-    "database",
-    ("testtitle", "testcoin", "now()")
-)

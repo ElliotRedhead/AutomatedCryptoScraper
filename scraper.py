@@ -1,3 +1,4 @@
+import db_functions
 import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -6,7 +7,7 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 
-target_website = os.environ["TARGET_WEBPAGE"]
+target_webpage = os.environ["TARGET_WEBPAGE"]
 
 
 def scrape_page(url):
@@ -32,3 +33,8 @@ def get_target_dict(parsed_json):
 if __name__ == "__main__":
     parsed_json = scrape_page(target_webpage)
     target_dict = get_target_dict(parsed_json)
+
+    coin_regex = re.search(r"\(([A-Z]+)\)", target_dict["title"])
+    coin = coin_regex.group()
+    column_values = (target_dict["title"], coin, "now()")
+    db_functions.insert_announcement_record("database", column_values)
