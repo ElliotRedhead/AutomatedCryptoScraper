@@ -37,4 +37,3 @@ def insert_announcement_record(db_name, column_values):
     finally:
         cursor.close()
         connection.close()
-        print("PostgreSQL connection is closed")
