@@ -35,7 +35,11 @@ if __name__ == "__main__":
     target_dict = get_target_dict(parsed_json)
 
     coin_regex = re.search(r"\(([A-Z]+)\)", target_dict["title"])
-    coin = coin_regex.group()  # e.g. (SUPER)
+    print(coin_regex)
+    coin = coin_regex.group(1)  # e.g. SUPER
+    # coin3 = coin_regex.group(2)  # e.g. (SUPER)
+    print(f"coin is: {coin}")
+    # print(coin3)
     coin = coin[1:len(coin)-1]  # e.g. SUPER
     column_values = (target_dict["title"], coin, "now()")
-    db_functions.insert_announcement_record("database", column_values)
+    # db_functions.insert_announcement_record("database", column_values)

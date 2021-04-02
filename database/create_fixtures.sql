@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS announcements (
     id SERIAL,
     title TEXT,
 	coin TEXT,
-	datetime_added TIMESTAMP
+	datetime_added TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS coins (
