@@ -34,12 +34,14 @@ if __name__ == "__main__":
     parsed_json = scrape_page(target_webpage)
     target_dict = get_target_dict(parsed_json)
 
-    coin_regex = re.search(r"\(([A-Z]+)\)", target_dict["title"])
-    print(coin_regex)
-    coin = coin_regex.group(1)  # e.g. SUPER
-    # coin3 = coin_regex.group(2)  # e.g. (SUPER)
-    print(f"coin is: {coin}")
-    # print(coin3)
-    coin = coin[1:len(coin)-1]  # e.g. SUPER
-    column_values = (target_dict["title"], coin, "now()")
-    # db_functions.insert_announcement_record("database", column_values)
+    # determine if title is already the latest addition to the db
+    latest_db_announcement_title = db_functions.get_latest_announcement_record_title("database")
+    if(latest_db_announcement_title != target_dict["title"]):
+        # if new title, find all coin strings in that title
+        coin_regex_list = re.findall(r"\(([A-Z]+)\)", target_dict["title"])
+        # for each new coin found in the title, insert a record
+        for coin in coin_regex_list:
+            column_values = (target_dict["title"], coin, "now()")
+            db_functions.insert_announcement_record("database", column_values)
+
+# Needs handling if regex not found
