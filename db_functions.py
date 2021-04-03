@@ -37,3 +37,23 @@ def insert_announcement_record(db_name, column_values):
     finally:
         cursor.close()
         connection.close()
+
+
+def get_latest_announcement_record_title(db_name):
+    connection = connect_db(db_name)
+    cursor = connection.cursor()
+    try:
+        SQL = f"SELECT title FROM announcements ORDER BY datetime_added DESC LIMIT 1;"
+        # Execute SQL query
+        cursor.execute(SQL)
+        result = cursor.fetchall()
+    except (Exception, Error) as error:
+        print("Error while executing SQL query", error)
+    finally:
+        cursor.close()
+        connection.close()
+        if(result):
+            return result[0][0]
+
+
+get_latest_announcement_record_title("database")
