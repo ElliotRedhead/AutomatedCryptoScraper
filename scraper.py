@@ -1,4 +1,5 @@
 import db_functions
+import send_email
 import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -45,3 +46,8 @@ if __name__ == "__main__":
             for coin in coin_regex_list:
                 column_values = (target_dict["title"], coin, "now()")
                 db_functions.insert_announcement_record("database", column_values)
+                all_users = db_functions.get_records("database", "users")
+                users_dicts = []
+                for user in all_users:
+                    users_dicts.append({"username":user[1], "email":user[2]})
+                send_email.construct_coin_announcement(coin, users_dicts)
