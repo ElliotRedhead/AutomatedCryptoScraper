@@ -9,5 +9,12 @@ CREATE TABLE IF NOT EXISTS coins (
 	id SERIAL,
 	coin TEXT,
 	purchased BOOLEAN,
-	datetime_added TIMESTAMP
+	datetime_added TIMESTAMPTZ
 );
+
+CREATE TABLE IF NOT EXISTS users (
+	id SERIAL,
+	username TEXT,
+	email TEXT,
+	datetime_added TIMESTAMPTZ
+)
