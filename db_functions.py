@@ -19,7 +19,7 @@ def get_records(db_name, table_name):
     connection = connect_db(db_name)
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM {table_name};")
-    records = cursor.fetchone()
+    records = cursor.fetchall()
     return records
 
 
@@ -46,14 +46,11 @@ def get_latest_announcement_record_title(db_name):
         SQL = f"SELECT title FROM announcements ORDER BY datetime_added DESC LIMIT 1;"
         # Execute SQL query
         cursor.execute(SQL)
-        result = cursor.fetchall()
+        result = cursor.fetchone()
     except (Exception, Error) as error:
         print("Error while executing SQL query", error)
     finally:
         cursor.close()
         connection.close()
         if(result):
-            return result[0][0]
-
-
-get_latest_announcement_record_title("database")
+            return result[0]
