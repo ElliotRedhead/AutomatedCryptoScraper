@@ -1,15 +1,23 @@
 import psycopg2
 from psycopg2 import Error
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+db_username = os.environ["DB_USERNAME"]
+db_password = os.environ["DB_PASSWORD"]
+db_host = os.environ["DB_HOST"]
+db_port = os.environ["DB_PORT"]
+db_name = os.environ["DB_NAME"]
 
 def connect_db(db_name):
     try:
         # Connect to an existing database
-        connection = psycopg2.connect(user="username",
-                                      password="secret",
-                                      host="127.0.0.1",
-                                      port="5432",
-                                      database="database")
+        connection = psycopg2.connect(user=db_username or "username",
+                                      password=db_password or "secret",
+                                      host=db_host or "127.0.0.1",
+                                      port=db_port or "5432",
+                                      database=db_name or "database")
         return connection
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL", error)
